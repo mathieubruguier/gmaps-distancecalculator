@@ -70,7 +70,7 @@ function clearMarkers(controlDiv, map) {
         distanceText.style.lineHeight = '38px';
         distanceText.style.paddingLeft = '5px';
         distanceText.style.paddingRight = '5px';
-        distanceText.innerHTML = '0 km';
+        distanceText.innerHTML = '0 m';
         controlUI.appendChild(distanceText);
 
         // Setup the click event listeners: simply set the map to Chicago.
@@ -94,12 +94,21 @@ function clearMarkers(controlDiv, map) {
         markers = [];
       }
 
+      function displayDistance() {
+        if (distanceMeters < 1000) {
+          distanceText.innerHTML = Math.round(distanceMeters) + ' m';
+        }
+        else {
+          distanceText.innerHTML = Math.round(distanceMeters / 1000 * 100) / 100 + ' km';
+        }
+      }
+
       function recalculateDistance() {
         distanceMeters = 0;
         for (var i = 1; i < markers.length; i++) {
           distanceMeters += google.maps.geometry.spherical.computeDistanceBetween (markers[i - 1].position, markers[i].position);
         }
-        distanceText.innerHTML = Math.round(distanceMeters / 1000 * 100) / 100 + ' km';
+        displayDistance();
       }
 
       function initCalculations() {
@@ -114,7 +123,7 @@ function clearMarkers(controlDiv, map) {
             markers.push(marker);
             if (!isFirstMarker) {
               distanceMeters += google.maps.geometry.spherical.computeDistanceBetween (clickEvent.latLng, markers[markerIndex - 1].position);
-              distanceText.innerHTML = Math.round(distanceMeters / 1000 * 100) / 100 + ' km';
+              displayDistance();
             }
             google.maps.event.addListener(marker, 'drag', function (dragEvent) {
               clickableDrawPolygon.getPath().setAt(markerIndex, dragEvent.latLng);
