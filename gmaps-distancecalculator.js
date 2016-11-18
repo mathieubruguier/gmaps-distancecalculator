@@ -1,5 +1,7 @@
-// Displays a button to remove all the points previously created in click drawing
+// Customization options for the Distance Box
 var distanceBoxLabel = 'Measure distance'
+var headerBackgroundColor = '#f0573b'
+var headerTextColor = '#ffffff'
 
 // Customization options for the Stroke/Line
 var lineStrokeColor = "#f0573b";
@@ -36,14 +38,14 @@ function clearMarkers(controlDiv, map) {
         controlDiv.style.marginBottom = '50px';
 
         var controlUI = document.createElement('div');
-        controlUI.style.backgroundColor = '#f0573b';
+        controlUI.style.backgroundColor = headerBackgroundColor;
         controlUI.style.cursor = 'pointer';
         controlUI.style.textAlign = 'center';
         controlUI.style.height = '36.3px';
         controlDiv.appendChild(controlUI);
 
         var titleText = document.createElement('div');
-        titleText.style.color = '#ffffff';
+        titleText.style.color = headerTextColor;
         titleText.style.fontWeight = 'bold';
         titleText.style.fontFamily = 'Roboto,Arial,sans-serif';
         titleText.style.fontSize = '13px';
